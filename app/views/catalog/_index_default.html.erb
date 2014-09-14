@@ -1,0 +1,27 @@
+<%# default partial to display solr document fields in catalog index view -%>
+<dl class="document-metadata dl-horizontal dl-invert">
+    <p style="margin-left: 18px;">
+        <% if document.get 'publisher_tesim' %>
+            <%= document.get('publisher_tesim') %>
+        <% end -%>
+        <% if document.get 'issn_tesim' %>
+            (ISSN: <%= document.get('issn_tesim') %>)
+        <% end -%>
+    </p>
+  <% if document.get 'title_alternative_tesim' %>
+      <li style="margin-left: 18px;">
+          <%= document.get('title_alternative_tesim', {:sep => ';   '}) %>
+      </li>
+  <% end -%>
+<!--
+  <% index_fields(document).each do |solr_fname, field| -%>
+    <li><%= render_index_field_label document, :field => solr_fname %></li>
+    <li><%= field %></li>
+    <% if should_render_index_field? document, field %>
+	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
+	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_value document, :field => solr_fname %></dd>
+    <% end -%>
+  <% end -%>
+-->
+
+</dl>

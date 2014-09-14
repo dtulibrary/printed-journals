@@ -1,0 +1,25 @@
+<%# default partial to display solr document fields in catalog show view -%>
+<dl class="dl-horizontal  dl-invert">
+    <% document_show_fields(document).each do |solr_fname, field| -%>
+        <% if should_render_show_field? document, field %>
+            <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+            <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+        <% end -%>
+    <% end -%>
+    <dt class="blacklight-">Location:</dt>
+    <dd class="blacklight-">
+    <% (0..20).each do |i| %>
+        <% if document.get 'physical_location_' + i.to_s + '_place_tesim' %>
+            <li>
+                <%= document.get 'physical_location_' + i.to_s + '_place_tesim' %>
+                <% if document.get 'physical_location_' + i.to_s + '_years_tesim' %>
+                    (<%= document.get 'physical_location_' + i.to_s + '_years_tesim' %>)
+                <% end -%>
+                <% if document.get 'physical_location_' + i.to_s + '_note_tesim' %>
+                    <div style="margin-left: 15px;">Notes: <%= document.get 'physical_location_' + i.to_s + '_note_tesim' %></div>
+                <% end -%>
+            </li>
+        <% end -%>
+    <% end -%>
+    </dd>
+</dl>
