@@ -11,4 +11,5 @@ class Journal < ActiveFedora::Base
 #   delegate :issn,              :to=>'descMetadata'
 #   delegate :publisher,         :to=>'descMetadata'
     delegate :physical_location, :to=>'descMetadata'
+    delegate :z30, :to=>'descMetadata'
 end
