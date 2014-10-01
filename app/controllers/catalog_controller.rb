@@ -80,7 +80,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('issn', :stored_searchable, type: :string), :label => 'ISSN'
     config.add_show_field solr_name('coden', :stored_searchable, type: :string), :label => 'CODEN'
     config.add_show_field solr_name('publisher', :stored_searchable, type: :string), :label => 'Publisher'
-    config.add_show_field solr_name('note', :stored_searchable, type: :string), :label => 'Notes', :separator => ' / '
+    config.add_show_field solr_name('notes', :stored_searchable, type: :string), :label => 'Notes', :separator => ' / '
     config.add_show_field solr_name('holdings', :stored_searchable, type: :string), :label => 'Holdings'
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -140,8 +140,8 @@ class CatalogController < ApplicationController
     end
     config.add_search_field('note', :label => 'Notes') do |field|
         field.solr_local_parameters = {
-            :qf => 'physical_location_note',
-            :pf => 'physical_location_note',
+            :qf => 'physical_location_note_tesim',
+            :pf => 'physical_location_note_tesim',
         }
     end
 

@@ -10,7 +10,7 @@ class JournalMetadata < ActiveFedora::OmDatastream
         t.issn(index_as: :stored_searchable)
         t.coden(index_as: :stored_searchable)
         t.publisher(index_as: :stored_searchable)
-        t.note(index_as: :stored_searchable)
+        t.notes(index_as: :stored_searchable)
         t.holdings(index_as: :stored_searchable)
         t.physical_location {
             t.place(index_as: :stored_searchable)
