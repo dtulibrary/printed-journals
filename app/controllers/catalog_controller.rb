@@ -72,10 +72,16 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field solr_name('id', :stored_searchable, type: :string), :label => 'id:'
-    config.add_show_field solr_name('title_alternative', :stored_searchable, type: :string), :label => 'Alternative title:'
-    config.add_show_field solr_name('issn', :stored_searchable, type: :string), :label => 'ISSN:'
-    config.add_show_field solr_name('publisher', :stored_searchable, type: :string), :label => 'Publisher:'
+    config.add_show_field solr_name('id', :stored_searchable, type: :string), :label => 'id'
+    config.add_show_field solr_name('title_alternative', :stored_searchable, type: :string), :label => 'Alternative title'
+    config.add_show_field solr_name('title_previous', :stored_searchable, type: :string), :label => 'Previous title'
+    config.add_show_field solr_name('title_next', :stored_searchable, type: :string), :label => 'Next title'
+    config.add_show_field solr_name('organisation', :stored_searchable, type: :string), :label => 'Organisation'
+    config.add_show_field solr_name('issn', :stored_searchable, type: :string), :label => 'ISSN'
+    config.add_show_field solr_name('coden', :stored_searchable, type: :string), :label => 'CODEN'
+    config.add_show_field solr_name('publisher', :stored_searchable, type: :string), :label => 'Publisher'
+    config.add_show_field solr_name('note', :stored_searchable, type: :string), :label => 'Notes', :separator => ' / '
+    config.add_show_field solr_name('holdings', :stored_searchable, type: :string), :label => 'Holdings'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
