@@ -13,7 +13,7 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
     config.default_solr_params = {
-      :qf => 'id_tesim title_tesim title_alternative_tesim issn_tesim publisher_tesim physical_location_place_tesim physical_location_years_tesim physical_location_note_tesim',
+      :qf => 'id_tesim title_tesim title_alternative_tesim title_previous_tesim title_next_tesim issn_tesim coden_tesim publisher_tesim notes_tesim holdings_tesim physical_location_place_tesim physical_location_years_tesim physical_location_note_tesim',
       :qt => 'search',
       :rows => 10
     }
@@ -101,13 +101,13 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-    config.add_search_field 'all_fields', :label => 'All Fields'
     config.add_search_field('title', :label => 'Title') do |field|
         field.solr_local_parameters = {
             :qf => 'title_tesim',
             :pf => 'title_tesim',
         }
     end
+    config.add_search_field 'all_fields', :label => 'All Fields'
     config.add_search_field('title_alternative', :label => 'Alternative title') do |field|
         field.solr_local_parameters = {
             :qf => 'title_alternative_tesim',
