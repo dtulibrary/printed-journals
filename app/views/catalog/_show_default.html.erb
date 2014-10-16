@@ -38,9 +38,17 @@
                         <th>Description</th>
                         <th>Status</th>
                     </tr>
+                    <% type = 'even' %>
                     <% (0..2500).each do |i| %>
+                        <%
+                            if type == 'odd'
+                                type = 'even'
+                            else
+                                type = 'odd'
+                            end
+                        %>
                         <% if document.get 'z30_' + i.to_s + '_sub_library_ssm' %>
-                            <tr>
+                            <tr class="issue-row-<%= type %>">
                                 <td><%= document.get 'z30_' + i.to_s + '_collection_ssm' %></td>
                                 <td><%= document.get 'z30_' + i.to_s + '_shelf_code_ssm' %></td>
                                 <td><%= document.get 'z30_' + i.to_s + '_barcode_ssm' %></td>
