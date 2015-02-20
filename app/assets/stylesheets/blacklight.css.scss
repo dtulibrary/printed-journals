@@ -1,53 +1,5 @@
 @import 'bootstrap-sprockets';
+
 @import 'bootstrap';
 
 @import 'blacklight/blacklight';
-
-$logo_image: 'logox.png';
-$xxx_yyy: 'foobar';
-
-.foobar {
-    font-weight: bold;
-    font-size: 10px;
-}
-#header-navbar {
-  .navbar-brand {  /* The main logo image for the Blacklight instance */
-        width: 300px;
-    height: 50px;
-          background:transparent image_url('logo.png') no-repeat top left;
-          display: inline-block;
-          text-indent: 100%;
-          white-space: nowrap;
-          overflow: hidden;
-          padding-right:0;
-          margin-right:20px;
-          padding-left: 0;
-  }
-}
-.navbar-inverse {
-    background-color: #990000;
-    .navbar-nav {
-        > li > a {
-            color: #ffffff;
-            padding-top: 20px;
-            padding-bottom: 10px;
-        }
-    }
-}
-.navbar-text {
-    color: #ffffff;
-}
-.navbar-form {
-    .input-group {
-        width: 600px;
-        .input-group-addon {
-            width: 20%;
-        }
-    }
-}
-.issue-row-odd {
-    background-color: #fafafa;
-}
-.issue-row-even {
-    background-color: #fff0e9;
-}

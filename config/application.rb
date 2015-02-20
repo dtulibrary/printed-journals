@@ -6,12 +6,15 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module PrintedJournals
+module Missingstuff
   class Application < Rails::Application
     
     config.generators do |g|
       g.test_framework :rspec, :spec => true
     end
+
+    # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += Dir["#{config.root}/app/models/**/"]
 
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -25,7 +28,5 @@ module PrintedJournals
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-
   end
-
 end

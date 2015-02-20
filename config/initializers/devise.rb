@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = '576d7a2c515ea64f5c4a8a196602874695304ee79a7bfc941b5653751379b6b26201528e8c2bb9686d4667bb4a01b588d1586881adc8b7c97a6601b88e10991c'
+  # config.secret_key = '630589cdfd13b3c78b46d335132b91640dbaf26afa8654b299485c6cae9f4b7c64fb8f5aa91d41940d0bc48fbff904fc3b174daf2000d84b239722fad483cd9b'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = '41908ed1a6040fb2c9d0c7bfc635eea2158159a7c0ae72ccba5cc4dc370c144f071d3e89d7a266f2780740fa13977f628729d5c00b1edee6e06e7edefef51343'
+  # config.pepper = 'ca3915d41c1faf25729509f240a5e7d81e33af3f6c1d65d0386f0bf90cf07b355b7048312c8ee53760ed2484272148796d13ba0696dde155c37c40afad1a21da'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -127,9 +127,6 @@ Devise.setup do |config|
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
-
-  # Invalidates all the remember me tokens when the user signs out.
-  config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false

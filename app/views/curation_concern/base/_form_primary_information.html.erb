@@ -1,0 +1,17 @@
+<fieldset class="required primary"> 
+
+  <%= f.input :title %>
+  <%= f.input :title_alternative, as: :multi_value %>
+  <%= f.input :title_previous, as: :multi_value %>
+  <%= f.input :title_next, as: :multi_value %>
+
+  <%= f.input :organisation, as: :multi_value %>
+  <%= f.input :issn, as: :multi_value %>
+  <%= f.input :coden, as: :multi_value %>
+  <%= f.input :publisher, as: :multi_value %>
+  <%= f.input :notes, as: :multi_value %>
+  <%= f.input :holdings, as: :multi_value %>
+
+  <%= f.input :physical_location, as: :hierarchical_attribute, wrapper_html: { class: 'multi_value' }, input_html: {width: 40} %>
+
+</fieldset>

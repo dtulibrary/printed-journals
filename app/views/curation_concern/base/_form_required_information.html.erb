@@ -1,0 +1,6 @@
+<fieldset class="required">
+  <legend>Required Information</legend>
+
+  <%= f.input :publication_date, collection: Date.today.year.downto(1960), label:'Publication Year', label_html: {class: ''}, input_html: {class: ''} %>
+
+</fieldset>
