@@ -14,7 +14,7 @@ module WithJournalMetadata
 
   # Attributes that require special handling on updates
   def self.special_attributes
-    [:physical_location]
+    [:physical_location, :z30]
   end
 
   # Overrides attributes=
