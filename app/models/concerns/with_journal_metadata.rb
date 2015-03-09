@@ -6,7 +6,7 @@ module WithJournalMetadata
     validates_presence_of :title,  message: 'Your work must have a title.'
 
     # Single-value fields
-    has_attributes :title, :publication_date, datastream: :descMetadata, multiple: false
+    has_attributes :title, :issues, :publication_date, datastream: :descMetadata, multiple: false
 
     # Multi-value fields
     has_attributes :title_alternative, :title_previous, :title_next, :organisation, :issn, :coden, :publisher, :notes, :holdings, :physical_location, :z30, datastream: :descMetadata, multiple: true

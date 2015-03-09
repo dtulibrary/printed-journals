@@ -41,6 +41,7 @@ class JournalDatastream < ActiveFedora::OmDatastream
             t.price(index_as: :displayable)
             t.loans(index_as: :displayable)
         }
+        t.issues
         t.publication_date(index_as: [:stored_searchable, :facetable])
         t.type(path:"type", index_as: [:stored_searchable, :facetable])
     end
