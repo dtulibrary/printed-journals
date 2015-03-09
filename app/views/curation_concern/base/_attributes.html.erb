@@ -16,7 +16,30 @@
   <%= curation_concern_attribute_to_html(curation_concern, :notes, "Notes") %>
   <%= curation_concern_attribute_to_html(curation_concern, :holdings, "Holdings") %>
   <%= hierarchical_attribute_to_html(curation_concern, :physical_location, 'Physical location', { catalog_search_link: false }) %>
-  <%= hierarchical_attribute_to_table(curation_concern, :z30, 'Issues', { catalog_search_link: false, subfields: [:collection, :shelf_code, :barcode, :description, :status_text] }) %>
+  <tr>
+    <td>Issues:</td>
+    <td>
+      <table width="100%">
+        <tr>
+          <th>Collection</th>
+          <th>Shelf code</th>
+          <th>Barcode</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+        <% issues = JSON.parse curation_concern.issues %>
+        <% issues.each do |z30| %>
+          <tr>
+            <td><%= z30['collection'] %></td>
+            <td><%= z30['shelf_code'] %></td>
+            <td><%= z30['barcode'] %></td>
+            <td><%= z30['description'] %></td>
+            <td><%= z30['status_text'] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </td>
+  </tr>
   <tr>
     <th>Access Rights</th>
     <td>
