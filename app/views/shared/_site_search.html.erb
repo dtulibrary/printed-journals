@@ -1,0 +1,18 @@
+<%= form_tag main_app.catalog_index_path, :method => :get, :class => "search-form" do %>
+  <div class="input-group">
+    <%= label_tag :catalog_search, t('sufia.search.form.q.label'), :class => "accessible-hidden" %>
+    <%= render_hash_as_hidden_fields(params_for_search().except(:q, :search_field, :qt, :page, :utf8)) %>
+    <span class="input-group-addon" style="height: 2.1em; padding-top: 4px; padding-bottom: 4px;">
+      <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), :title => t('blacklight.search.form.search_field.title'), :class=>"search_field") %>
+    </span>
+    <style>
+        div.input-group input.search-query {
+        }
+    </style>
+    <%= text_field_tag(:q, params[:q], :class => "q search-query", :id => "catalog_search",
+                       :placeholder => t('sufia.search.form.q.placeholder'), :size => "30", :tabindex => "1", :type => "search") %>
+    <button type="submit" class="search-submit btn btn-primary" id="keyword-search-submit" tabindex="2">
+      <i class="glyphicon glyphicon-search icon-white"></i><span class="accessible-hidden">Search</span>
+    </button>
+  </div>
+<% end %>
