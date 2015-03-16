@@ -9,7 +9,7 @@ module WithJournalMetadata
     has_attributes :title, :issues, :publication_date, datastream: :descMetadata, multiple: false
 
     # Multi-value fields
-    has_attributes :title_alternative, :title_previous, :title_next, :organisation, :issn, :coden, :publisher, :notes, :holdings, :physical_location, :z30, datastream: :descMetadata, multiple: true
+    has_attributes :title_alternative, :title_previous, :title_next, :organisation, :issn, :coden, :publisher, :notes, :holdings, :physical_location, :z30, :hold, :missing_issue, datastream: :descMetadata, multiple: true
   end
 
   # Attributes that require special handling on updates
