@@ -13,7 +13,7 @@
   <%= f.input :holdings, as: :multi_value %>
 
   <%= f.input :physical_location, as: :hierarchical_attribute, wrapper_html: { class: 'multi_value' }, input_html: {width: 40} %>
-  <%= f.input :hold, as: :hierarchical_attribute, wrapper_html: { class: 'multi_value' }, input_html: {} %>
+  <%= f.input :hold, as: :hierarchical_attribute, label: 'Details holdings', wrapper_html: { class: 'multi_value' }, input_html: {} %>
   <%= f.input :missing_issue, as: :hierarchical_attribute, wrapper_html: { class: 'multi_value' }, input_html: {} %>
 
 </fieldset>
