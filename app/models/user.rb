@@ -29,8 +29,8 @@ class User < ActiveRecord::Base
 
     user.user_data = user_data
     user.email = user_data['email'].to_s
-    if user_data['applications_and_roles'] and user_data['applications_and_roles']['missingStuff']
-      user.group_list = user_data['applications_and_roles']['missingStuff'].join(';?;')
+    if user_data['applications_and_roles'] and user_data['applications_and_roles']['printedJournals']
+      user.group_list = user_data['applications_and_roles']['printedJournals'].join(';?;')
     end
     user.save
     user
