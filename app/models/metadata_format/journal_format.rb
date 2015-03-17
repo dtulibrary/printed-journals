@@ -2,10 +2,10 @@
 class JournalFormat < OAI::Provider::Metadata::Format
 
   def initialize
-    @prefix = 'jou'
+    @prefix = 'mods'
     @schema = ''
-    @namespace = 'http://ns.cvt.dk/journals/1.0'
-    @element_namespace = 'jou'
+    @namespace = 'http://www.loc.gov/mods/v3'
+    @element_namespace = ''
     @fields = []
   end
 
