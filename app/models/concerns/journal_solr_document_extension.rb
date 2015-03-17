@@ -35,7 +35,9 @@ module JournalSolrDocumentExtension
              "xmlns:xsi"          => "http://www.w3.org/2001/XMLSchema-instance",
              "xmlns:xlink"        => "http://www.w3.org/1999/xlink",
              "xsi:schemaLocation" => "http://oai.dads.dtic.dk/schema/mods-3-5-ds-dtic-dk-extended.xsd") do
-      xml.genre('type'=>'ds.dtic.dk:type:synthesized', 'journal:print')
+      xml.genre('type'=>'ds.dtic.dk:type:synthesized') {
+          xml.text! 'journal:print'
+      }
       xml.titleInfo {
         xml.title('lang'=>'und') {
           xml.main cc.title
