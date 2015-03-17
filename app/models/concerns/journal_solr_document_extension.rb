@@ -23,12 +23,6 @@ module JournalSolrDocumentExtension
   # dublin core elements are mapped against the #dublin_core_field_names whitelist.
   def export_as_journal_xml
     cc = ActiveFedora::Base.find(self["id"])
-    case cc.class.to_s
-      when 'Journal'
-        type = 'do'
-      else
-        type = 'do'
-    end
     xml = Builder::XmlMarkup.new
     xml.tag!("mods",
              "xmlns"              => "http://www.loc.gov/mods/v3",
@@ -43,21 +37,27 @@ module JournalSolrDocumentExtension
           xml.main cc.title
         }
       }
-      xml.titleInfo('type'=>'alternative') {
-        xml.title('lang'=>'und') {
-          xml.main cc.title_alternative
+      cc.title_alternative.each do |title|
+        xml.titleInfo('type'=>'alternative') {
+          xml.title('lang'=>'und') {
+            xml.main title
+          }
         }
-      }
-      xml.titleInfo('type'=>'preceding') {
-        xml.title('lang'=>'und') {
-          xml.main cc.title_previous
+      end
+      cc.title_previous.each do |title|
+        xml.titleInfo('type'=>'preceding') {
+          xml.title('lang'=>'und') {
+            xml.main title
+          }
         }
-      }
-      xml.titleInfo('type'=>'succeeding') {
-        xml.title('lang'=>'und') {
-          xml.main cc.title_next
+      end
+      cc.title_next.each do |title|
+        xml.titleInfo('type'=>'succeeding') {
+          xml.title('lang'=>'und') {
+            xml.main title
+          }
         }
-      }
+      end
       xml.identifier('type'=>'ds.dtic.dk:id:pub:dads:recordid') {
         xml.text! cc.id
       }
@@ -67,112 +67,100 @@ module JournalSolrDocumentExtension
             xml.main cc.title
           }
         }
-        if cc.issn
+        cc.issn.each do |issn|
           xml.identifier('type'=>'ds.dtic.dk:id:pub:dads:pissn') {
-            xml.text! cc.issn
+            xml.text! issn
           }
         end
-        if cc.coden
+        cc.coden.each do |coden|
           xml.identifier('type'=>'ds.dtic.dk:id:pub:coden') {
-            xml.text! cc.coden
+            xml.text! coden
           }
         end
-        if cc.organisation or cc.publisher
-          xml.originInfo('eventType'=>'publisher') {
-            if cc.organisation
-              if cc.publisher
-                xml.publisher cc.organisation + ', ' + cc.publisher
+        i=0
+        while 1
+          if cc.organisation[i] or cc.publisher[i]
+            xml.originInfo('eventType'=>'publisher') {
+              if cc.organisation[i]
+                if cc.publisher[i]
+                  xml.publisher cc.organisation[i] + ', ' + cc.publisher[i]
+                else
+                  xml.publisher cc.organisation[i]
+                end
               else
-                xml.publisher cc.organisation
+                xml.publisher cc.publisher[i]
               end
-            else
-              xml.publisher cc.publisher
-            end
-          }
+            }
+            i += 1
+          else
+            break
+          end
         end
       }
-      if cc.notes
-        xml.note cc.notes
+      cc.notes.each do |note|
+        xml.note note
       end
-#     xml.jou(:title) {
-#       xml.jou(:original,"xml:lang"=>cc.lang) {
-#         xml.jou(:main, cc.title)
-#         cc.subtitle.each do |subtitle|
-#           xml.jou(:sub, subtitle)
-#         end
-#       }
-#     }
-#     if cc.description or cc.keyword.length > 0
-#       xml.jou(:description) {
-#         xml.jou(:abstract, cc.description)
-#         if cc.keyword.length > 0
-#           xml.jou(:subject) {
-#             cc.keyword.each do |kw|
-#               xml.jou(:keyword, key_type:'fre') {
-#                 xml.text! kw
-#               }
-#             end
-#           }
-#         end
-#       }
-#     end
-#     hierarchical_attribute_collection(cc, :person).each do |person|
-#       xml.jou(:person, pers_role:person.role.first) {
-#         xml.jou(:name) {
-#           xml.jou(:first, person.first_name.first)
-#           xml.jou(:last,  person.last_name.first)
-#         }
-#       }
-#     end
-#     hierarchical_attribute_collection(cc, :organisation).each do |org|
-#       xml.jou(:organisation, pers_role:org.role.first) {
-#         xml.jou(:name) {
-#           xml.jou(:level1, org.level1.first)
-#           xml.jou(:level2, org.level2.first)
-#           xml.jou(:level3, org.level3.first)
-#           xml.jou(:level4, org.level4.first)
-#         }
-#       }
-#     end
-#     cc.requester.each do |req|
-#       xml.jou(:local_field, tag_type:'4') {
-#         xml.jou(:code, 'requester')
-#         xml.jou(:data, req)
-#       }
-#     end
-#     xml.jou(:publication) {
-#       if cc.linked_resources.present?
-#         cc.linked_resources.each do |link|
-#           xml.jou(:inetpub) {
-#             if link.title and link.title.length > 0
-#               xml.jou(:text, link.title)
-#             else
-#               xml.jou(:text, link.url)
-#             end
-#             xml.jou(:url, link.url)
-#           }
-#         end
-#       end
-#       cc.generic_files.each do |file|
-#         hash = file.to_solr.stringify_keys
-#         access = 'na'
-#         if hash[Hydra.config.permissions.read.group].present?
-#           if hash[Hydra.config.permissions.read.group].include?('public')
-#             if hash[Hydra.config.permissions.embargo.release_date].present?
-#               access = 'ea'
-#             else
-#               access = 'oa'
-#             end
-#           elsif hash[Hydra.config.permissions.read.group].include?('registered')
-#             access = 'ca'
-#           end
-#         end
-#         xml.jou(:digital_object, id: file.pid, access: access) {
-#           xml.jou(:file, filename: file.title.first)
-#           xml.jou(:uri, "http://missingStuff.dtic.dk/downloads/#{file.pid}")
-#         }
-#       end
-#     }
+      place = []
+      hierarchical_attribute_collection(cc, :physical_location).each do |phys|
+        place = phys.place.first.split(' : ')
+        if place[0] == 'MAG'
+          place[0] = 'DTU Library, Lyngby, Closed stacks'
+        else
+          place[0] = 'DTU Library, Lyngby, Open stacks'
+        end
+        break
+      end
+      xml.location {
+        xml.holdingExternal {
+          xml.holding('xmlns:iso20775'=>'info:ofi/fmt:xml:xsd:iso20775', 'xsi:schemaLocation'=>'info:ofi/fmt:xml:xsd:iso20775 http://www.loc.gov/standards/iso20775/N130_ISOholdings_v6_1.xsd') {
+            xml.holdingStructured {
+              hierarchical_attribute_collection(cc, :hold).each do |hold|
+                xml.set {
+                  xml.sublocation place[0]
+                  xml.shelfLocator place[1]
+                  xml.enumerationAndChronology {
+                    xml.startingEnumAndChronology {
+                      xml.structured {
+                        xml.chronology {
+                          xml.value hold.from_year.first
+                        }
+                        xml.enumeration {
+                          xml.level 1
+                          xml.caption 'vol'
+                          xml.value hold.from_volume.first
+                        }
+                        xml.enumeration {
+                          xml.level 2
+                          xml.caption 'iss'
+                          xml.value hold.from_issue.first
+                        }
+                      }
+                    }
+                    xml.endingEnumAndChronology {
+                      xml.structured {
+                        xml.chronology {
+                          xml.value hold.to_year.first
+                        }
+                        xml.enumeration {
+                          xml.level 1
+                          xml.caption 'vol'
+                          xml.value hold.to_volume.first
+                        }
+                        xml.enumeration {
+                          xml.level 2
+                          xml.caption 'iss'
+                          xml.value hold.to_issue.first
+                        }
+                      }
+                    }
+                  }
+                }
+              end
+            
+            }
+          }
+        }
+      }
     end
   end
 end
