@@ -16,6 +16,8 @@
   <%= curation_concern_attribute_to_html(curation_concern, :notes, "Notes") %>
   <%= curation_concern_attribute_to_html(curation_concern, :holdings, "Holdings") %>
   <%= hierarchical_attribute_to_html(curation_concern, :physical_location, 'Physical location', { catalog_search_link: false }) %>
+  <%= hierarchical_attribute_to_html(curation_concern, :hold, 'Detailed holdings', { catalog_search_link: false }) %>
+  <%= hierarchical_attribute_to_html(curation_concern, :missing_issue, 'Missing issues', { catalog_search_link: false }) %>
   <tr>
     <td>Issues:</td>
     <td>
