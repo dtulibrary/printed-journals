@@ -46,14 +46,5 @@
       </table>
     </td>
   </tr>
-  <tr>
-    <th>Access Rights</th>
-    <td>
-      <%= permission_badge_for(curation_concern) %>
-    </td>
-  </tr>
-  <%= curation_concern_attribute_to_html(curation_concern, :embargo_release_date, "Embargo Release Date") %>
-  <%= curation_concern_attribute_to_html(curation_concern, :lease_expiration_date, "Lease Expiration Date") %>
-  <%= curation_concern_attribute_to_html(curation_concern, :rights, "Content License") %>
   </tbody>
 </table>
