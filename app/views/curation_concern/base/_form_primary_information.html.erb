@@ -16,4 +16,5 @@
   <%= f.input :hold, as: :hierarchical_attribute, label: 'Details holdings', wrapper_html: { class: 'multi_value' }, input_html: {} %>
   <%= f.input :missing_issue, as: :hierarchical_attribute, wrapper_html: { class: 'multi_value' }, input_html: {} %>
 
+  <input type="hidden" name="<%= f.object_name %>[visibility]" value="<%= Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC %>"/>
 </fieldset>

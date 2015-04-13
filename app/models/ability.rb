@@ -17,7 +17,7 @@ class Ability
       can [:create, :edit, :update], :all
     end
     if user_groups.include? 'admin'
-      can [:discover, :show, :read, :edit, :update, :destroy], :all
+      can [:discover, :show, :read, :edit, :update, :create, :destroy], :all
     end
   end
 end

@@ -21,9 +21,6 @@ class CatalogController < ApplicationController
       :qt => 'search',
       :rows => 10
     }
-    Rails.logger.info "config.class: #{config.class}"
-    Rails.logger.info "config.methods: #{config.methods.sort}"
-    Rails.logger.info "config: #{config.inspect}"
     config.search_fields = {};
     config.add_search_field('all_fields', :label => 'All Fields') do |field|
         field.solr_local_parameters = {
@@ -77,8 +74,14 @@ class CatalogController < ApplicationController
   # get search results from the solr index
   # Overriding this method in order to enable rendering of OAI-PMH responses when .oaipmh is the requested format
   def index
+    respond_to do |format|
+      format.html {
+        if params['f'].nil?
+          params['f'] = {'generic_type_sim' => ['Work']}
+        end
+      }
+    end
     (@response, @document_list) = get_search_results
-
     respond_to do |format|
       format.html { }
       format.rss  { render :layout => false }

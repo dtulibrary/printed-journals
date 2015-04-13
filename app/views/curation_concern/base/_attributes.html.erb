@@ -29,7 +29,11 @@
           <th>Description</th>
           <th>Status</th>
         </tr>
-        <% issues = JSON.parse curation_concern.issues %>
+        <% if curation_concern.issues.nil?
+             issues = []
+           else
+             issues = JSON.parse curation_concern.issues
+           end %>
         <% issues.each do |z30| %>
           <tr>
             <td><%= z30['collection'] %></td>
